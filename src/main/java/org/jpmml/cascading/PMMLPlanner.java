@@ -8,6 +8,7 @@ import java.util.*;
 import cascading.flow.*;
 import cascading.flow.planner.*;
 import cascading.pipe.*;
+import cascading.pipe.assembly.*;
 import cascading.tuple.*;
 
 import org.jpmml.evaluator.*;
@@ -21,6 +22,8 @@ public class PMMLPlanner implements AssemblyPlanner {
 	private String headName = null;
 
 	private String tailName = null;
+
+	private Fields retainedFields = null;
 
 
 	public PMMLPlanner(Evaluator evaluator){
@@ -82,6 +85,11 @@ public class PMMLPlanner implements AssemblyPlanner {
 
 		Fields argumentFields = FieldsUtil.getActiveFields(evaluator);
 		Fields outputFields = (FieldsUtil.getPredictedFields(evaluator)).append(FieldsUtil.getOutputFields(evaluator));
+
+		Fields retainedFields = getRetainedFields();
+		if(retainedFields != null){
+			tail = new Retain(tail, retainedFields);
+		}
 
 		PMMLFunction function = new PMMLFunction(outputFields, evaluator);
 
@@ -162,5 +170,33 @@ public class PMMLPlanner implements AssemblyPlanner {
 	 */
 	public void setTailName(String tailName){
 		this.tailName = tailName;
+	}
+
+	/**
+	 * Orders the retention of only those incoming fields that represent PMML function argument fields.
+	 *
+	 * @see #setRetainedFields(Fields)
+	 */
+	public void setRetainOnlyActiveFields(){
+		Evaluator evaluator = getEvaluator();
+
+		setRetainedFields(FieldsUtil.getActiveFields(evaluator));
+	}
+
+	public Fields getRetainedFields(){
+		return this.retainedFields;
+	}
+
+	/**
+	 * Sets the incoming fields that must be retained.
+	 *
+	 * By default, all incoming fields are retained. This will cause problems if there is a collison with PMML function output fields.
+	 *
+	 * @see FieldsUtil#getActiveFields(Evaluator)
+	 * @see FieldsUtil#getPredictedFields(Evaluator)
+	 * @see FieldsUtil#getOutputFields(Evaluator)
+	 */
+	public void setRetainedFields(Fields retainedFields){
+		this.retainedFields = retainedFields;
 	}
 }

@@ -50,6 +50,8 @@ public class Main {
 		flowDef = flowDef.addSink("sink", sink);
 
 		PMMLPlanner pmmlPlanner = new PMMLPlanner((Evaluator)modelManager);
+		pmmlPlanner.setRetainOnlyActiveFields();
+
 		flowDef = flowDef.addAssemblyPlanner(pmmlPlanner);
 
 		Flow<?> flow = connector.connect(flowDef);

@@ -35,6 +35,7 @@ Evaluator evaluator = ...
 FlowDef flowDef = ...
 
 PMMLPlanner pmmlPlanner = new PMMLPlanner(evaluator);
+pmmlPlanner.setRetainOnlyActiveFields();
 
 flowDef = flowDef.addAssemblyPlanner(pmmlPlanner);
 ```
