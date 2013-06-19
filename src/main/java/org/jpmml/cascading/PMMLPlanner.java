@@ -14,9 +14,13 @@ import org.jpmml.evaluator.*;
 
 public class PMMLPlanner implements AssemblyPlanner {
 
+	private Evaluator evaluator = null;
+
 	private String branchName = "pmml";
 
-	private Evaluator evaluator = null;
+	private String headName = null;
+
+	private String tailName = null;
 
 
 	public PMMLPlanner(Evaluator evaluator){
@@ -29,7 +33,10 @@ public class PMMLPlanner implements AssemblyPlanner {
 
 		Pipe tail = null;
 
-		String headName = findHeadName(context);
+		String headName = getHeadName();
+		if(headName == null){
+			headName = findHeadName(context);
+		}
 
 		if(tails.size() == 0){
 
@@ -51,7 +58,10 @@ public class PMMLPlanner implements AssemblyPlanner {
 			throw new PlannerException();
 		}
 
-		String tailName = findTailName(context);
+		String tailName = getTailName();
+		if(tailName == null){
+			tailName = findTailName(context);
+		}
 
 		tail = new Pipe(tailName, resolveAssembly(tail));
 
@@ -86,7 +96,7 @@ public class PMMLPlanner implements AssemblyPlanner {
 
 		List<String> sourceNames = flow.getSourceNames();
 		if(sourceNames.size() != 1){
-			throw new PlannerException();
+			throw new PlannerException("Too many sources to choose from: " + sourceNames);
 		}
 
 		return sourceNames.get(0);
@@ -97,10 +107,23 @@ public class PMMLPlanner implements AssemblyPlanner {
 
 		List<String> sinkNames = flow.getSinkNames();
 		if(sinkNames.size() != 1){
-			throw new PlannerException();
+			throw new PlannerException("Too many sinks to choose from: " + sinkNames);
 		}
 
 		return sinkNames.get(0);
+	}
+
+	public Evaluator getEvaluator(){
+		return this.evaluator;
+	}
+
+	private void setEvaluator(Evaluator evaluator){
+
+		if(evaluator == null){
+			throw new NullPointerException();
+		}
+
+		this.evaluator = evaluator;
 	}
 
 	public String getBranchName(){
@@ -116,16 +139,29 @@ public class PMMLPlanner implements AssemblyPlanner {
 		this.branchName = branchName;
 	}
 
-	public Evaluator getEvaluator(){
-		return this.evaluator;
+	public String getHeadName(){
+		return this.headName;
 	}
 
-	private void setEvaluator(Evaluator evaluator){
+	/**
+	 * Sets the name of the incoming source.
+	 *
+	 * This attribute is mandatory when more than one sources have been declared.
+	 */
+	public void setHeadName(String headName){
+		this.headName = headName;
+	}
 
-		if(evaluator == null){
-			throw new NullPointerException();
-		}
+	public String getTailName(){
+		return this.tailName;
+	}
 
-		this.evaluator = evaluator;
+	/**
+	 * Sets the name of the outgoing sink.
+	 *
+	 * This attribute is mandatory when more than one sinks have been declared.
+	 */
+	public void setTailName(String tailName){
+		this.tailName = tailName;
 	}
 }
