@@ -31,31 +31,30 @@ public class PMMLPlanner implements AssemblyPlanner {
 	public List<Pipe> resolveTails(Context context){
 		List<Pipe> tails = context.getTails();
 
-		Pipe tail = null;
+		Pipe tail;
 
 		String headName = getHeadName();
-		if(headName == null){
-			headName = findHeadName(context);
-		}
 
 		if(tails.size() == 0){
 
-			if(headName != null){
-				tail = new Pipe(headName);
+			if(headName == null){
+				headName = findHeadName(context);
 			}
+
+			tail = new Pipe(headName);
 		} else
 
 		if(tails.size() == 1){
 
 			if(headName != null){
-				throw new PlannerException();
+				throw new PlannerException("Cannot specify a head name when there is an incoming branch");
 			}
 
 			tail = tails.get(0);
 		} else
 
 		{
-			throw new PlannerException();
+			throw new PlannerException("Too many incoming branches to choose from");
 		}
 
 		String tailName = getTailName();
