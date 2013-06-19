@@ -137,13 +137,15 @@ public class PMMLPlanner implements AssemblyPlanner {
 		return this.branchName;
 	}
 
-	public void setBranchName(String branchName){
+	public PMMLPlanner setBranchName(String branchName){
 
 		if(branchName == null){
 			throw new NullPointerException();
 		}
 
 		this.branchName = branchName;
+
+		return this;
 	}
 
 	public String getHeadName(){
@@ -155,8 +157,10 @@ public class PMMLPlanner implements AssemblyPlanner {
 	 *
 	 * This attribute is mandatory when more than one sources have been declared.
 	 */
-	public void setHeadName(String headName){
+	public PMMLPlanner setHeadName(String headName){
 		this.headName = headName;
+
+		return this;
 	}
 
 	public String getTailName(){
@@ -168,8 +172,10 @@ public class PMMLPlanner implements AssemblyPlanner {
 	 *
 	 * This attribute is mandatory when more than one sinks have been declared.
 	 */
-	public void setTailName(String tailName){
+	public PMMLPlanner setTailName(String tailName){
 		this.tailName = tailName;
+
+		return this;
 	}
 
 	/**
@@ -177,10 +183,10 @@ public class PMMLPlanner implements AssemblyPlanner {
 	 *
 	 * @see #setRetainedFields(Fields)
 	 */
-	public void setRetainOnlyActiveFields(){
+	public PMMLPlanner setRetainOnlyActiveFields(){
 		Evaluator evaluator = getEvaluator();
 
-		setRetainedFields(FieldsUtil.getActiveFields(evaluator));
+		return setRetainedFields(FieldsUtil.getActiveFields(evaluator));
 	}
 
 	public Fields getRetainedFields(){
@@ -196,7 +202,9 @@ public class PMMLPlanner implements AssemblyPlanner {
 	 * @see FieldsUtil#getPredictedFields(Evaluator)
 	 * @see FieldsUtil#getOutputFields(Evaluator)
 	 */
-	public void setRetainedFields(Fields retainedFields){
+	public PMMLPlanner setRetainedFields(Fields retainedFields){
 		this.retainedFields = retainedFields;
+
+		return this;
 	}
 }
