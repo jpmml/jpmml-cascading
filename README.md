@@ -14,8 +14,6 @@ The build produces the following two JAR files (located in the `target` director
 
 JPMML provides high-level interface `org.jpmml.evaluator.Evaluator` for performing model input variable preparation and model evaluation.
 
-The JPMML approach is conceptually different from the Cascading Pattern approach. JPMML operations are atomic. Cascading Pattern attempts to analyze complex operations and reorganize them into aggregates of simple operations that can be executed more effectively on Apache Hadoop. Both approaches have their relative strengths and weaknesses. Obviously, the JPMML approach is simpler to develop and deploy.
-
 The Cascading function class `org.jpmml.cascading.PMMLFunction` is parameterized with an instance of `org.jpmml.evaluator.Evaluator`. The argument fields of the function match the active fields in the [MiningSchema element] (http://www.dmg.org/v4-1/MiningSchema.html). The output fields of the function match the predicted fields in the [MiningSchema element] (http://www.dmg.org/v4-1/MiningSchema.html), plus the output fields in the [Output element] (http://www.dmg.org/v4-1/Output.html).
 ```
 Evaluator evaluator = ...
