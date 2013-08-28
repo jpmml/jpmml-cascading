@@ -11,6 +11,7 @@ import cascading.tuple.*;
 import org.jpmml.evaluator.*;
 
 import org.dmg.pmml.*;
+import org.dmg.pmml.Field;
 
 public class FieldsUtil {
 
@@ -19,27 +20,27 @@ public class FieldsUtil {
 
 	static
 	public Fields getActiveFields(Evaluator evaluator){
-		Fields result = new Fields();
+		return getDataFields(evaluator, evaluator.getActiveFields());
+	}
 
-		List<FieldName> activeFields = evaluator.getActiveFields();
-		for(FieldName activeField : activeFields){
-			DictionaryField dictionaryField = evaluator.getDataField(activeField);
-
-			result = result.append(createFields(activeField.getValue(), dictionaryField));
-		}
-
-		return result;
+	static
+	public Fields getGroupFields(Evaluator evaluator){
+		return getDataFields(evaluator, evaluator.getGroupFields());
 	}
 
 	static
 	public Fields getPredictedFields(Evaluator evaluator){
+		return getDataFields(evaluator, evaluator.getPredictedFields());
+	}
+
+	static
+	private Fields getDataFields(Evaluator evaluator, List<FieldName> dataFields){
 		Fields result = new Fields();
 
-		List<FieldName> predictedFields = evaluator.getPredictedFields();
-		for(FieldName predictedField : predictedFields){
-			DictionaryField dictionaryField = evaluator.getDataField(predictedField);
+		for(FieldName dataField : dataFields){
+			DataField field = evaluator.getDataField(dataField);
 
-			result = result.append(createFields(predictedField.getValue(), dictionaryField));
+			result = result.append(createFields(dataField.getValue(), field));
 		}
 
 		return result;
@@ -51,17 +52,17 @@ public class FieldsUtil {
 
 		List<FieldName> outputFields = evaluator.getOutputFields();
 		for(FieldName outputField : outputFields){
-			DictionaryField dictionaryField = evaluator.getOutputField(outputField);
+			OutputField field = evaluator.getOutputField(outputField);
 
-			result = result.append(createFields(outputField.getValue(), dictionaryField));
+			result = result.append(createFields(outputField.getValue(), field));
 		}
 
 		return result;
 	}
 
 	static
-	private Fields createFields(String name, DictionaryField dictionaryField){
-		DataType dataType = dictionaryField.getDataType();
+	private Fields createFields(String name, Field field){
+		DataType dataType = field.getDataType();
 		if(dataType == null){
 			dataType = DataType.STRING;
 		}

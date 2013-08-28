@@ -83,17 +83,33 @@ public class PMMLPlanner implements AssemblyPlanner {
 
 		Evaluator evaluator = getEvaluator();
 
-		Fields argumentFields = FieldsUtil.getActiveFields(evaluator);
-		Fields outputFields = (FieldsUtil.getPredictedFields(evaluator)).append(FieldsUtil.getOutputFields(evaluator));
-
 		Fields retainedFields = getRetainedFields();
 		if(retainedFields != null){
 			tail = new Retain(tail, retainedFields);
 		}
 
-		PMMLFunction function = new PMMLFunction(outputFields, evaluator);
+		Fields activeFields = FieldsUtil.getActiveFields(evaluator);
+		Fields groupFields = FieldsUtil.getGroupFields(evaluator);
+		Fields predictedFields = FieldsUtil.getPredictedFields(evaluator);
+		Fields outputFields = FieldsUtil.getOutputFields(evaluator);
 
-		tail = new Each(tail, argumentFields, function, outputFields);
+		if(groupFields.size() > 0){
+
+			if(groupFields.size() > 1){
+				throw new PlannerException();
+			}
+
+			tail = new GroupBy(tail, groupFields);
+
+			tail = new Every(tail, activeFields, new CollectionAggregator(activeFields));
+		}
+
+		Fields incomingFields = (activeFields).append(groupFields);
+		Fields outgoingFields = (predictedFields).append(outputFields);
+
+		PMMLFunction function = new PMMLFunction(outgoingFields, evaluator);
+
+		tail = new Each(tail, incomingFields, function, outgoingFields);
 
 		return tail;
 	}
@@ -186,7 +202,9 @@ public class PMMLPlanner implements AssemblyPlanner {
 	public PMMLPlanner setRetainOnlyActiveFields(){
 		Evaluator evaluator = getEvaluator();
 
-		return setRetainedFields(FieldsUtil.getActiveFields(evaluator));
+		Fields incomingFields = (FieldsUtil.getActiveFields(evaluator)).append(FieldsUtil.getGroupFields(evaluator));
+
+		return setRetainedFields(incomingFields);
 	}
 
 	public Fields getRetainedFields(){
@@ -199,6 +217,7 @@ public class PMMLPlanner implements AssemblyPlanner {
 	 * By default, all incoming fields are retained. This will cause problems if there is a collison with PMML function output fields.
 	 *
 	 * @see FieldsUtil#getActiveFields(Evaluator)
+	 * @see FieldsUtil#getGroupFields(Evaluator)
 	 * @see FieldsUtil#getPredictedFields(Evaluator)
 	 * @see FieldsUtil#getOutputFields(Evaluator)
 	 */

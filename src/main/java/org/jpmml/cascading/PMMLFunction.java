@@ -10,6 +10,7 @@ import cascading.operation.*;
 import cascading.tuple.*;
 
 import org.jpmml.evaluator.*;
+import org.jpmml.evaluator.FieldValue;
 
 import org.dmg.pmml.*;
 
@@ -35,10 +36,54 @@ public class PMMLFunction extends BaseOperation<Object> implements Function<Obje
 		// Convert raw input values to (J)PMML input values
 		Collection<? extends Map.Entry<FieldName, Object>> entries = parameters.entrySet();
 		for(Map.Entry<FieldName, Object> entry : entries){
-			entry.setValue(evaluator.prepare(entry.getKey(), entry.getValue()));
+			FieldName name = entry.getKey();
+			Object value = entry.getValue();
+
+			FieldValue preparedValue;
+
+			if(value instanceof Collection){
+				List<Object> values = new ArrayList<Object>();
+
+				DataType dataType = null;
+
+				OpType opType = null;
+
+				Collection<?> rawValues = (Collection<?>)value;
+				for(Object rawValue : rawValues){
+					preparedValue = evaluator.prepare(name, rawValue);
+
+					if(preparedValue != null){
+
+						if(dataType == null){
+							dataType = preparedValue.getDataType();
+						} // End if
+
+						if(opType == null){
+							opType = preparedValue.getOpType();
+						}
+					}
+
+					values.add(FieldValueUtil.getValue(preparedValue));
+				}
+
+				preparedValue = FieldValueUtil.create(dataType, opType, values);
+			} else
+
+			{
+				preparedValue = evaluator.prepare(name, value);
+			}
+
+			entry.setValue(preparedValue);
 		}
 
 		Map<FieldName, ?> result = evaluator.evaluate(parameters);
+
+		Set<FieldName> resultFields = new LinkedHashSet<FieldName>();
+		resultFields.addAll(evaluator.getPredictedFields());
+		resultFields.addAll(evaluator.getOutputFields());
+
+		// Deliver promised fields only
+		(result.keySet()).retainAll(resultFields);
 
 		// Convert (J)PMML output values to raw output values
 		result = EvaluatorUtil.decodeValues(result);
@@ -70,7 +115,7 @@ public class PMMLFunction extends BaseOperation<Object> implements Function<Obje
 		Fields fields = tuple.getFields();
 
 		for(int i = 0; i < fields.size(); i++){
-			FieldName key = new FieldName((String)fields.get(i));
+			FieldName key = FieldName.create((String)fields.get(i));
 			Object value = tuple.getObject(key.getValue());
 
 			result.put(key, value);

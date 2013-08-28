@@ -36,6 +36,7 @@ public class Main {
 		FlowConnector connector = new HadoopFlowConnector(properties);
 
 		PMML pmml = IOUtil.unmarshal(new File(args[0]));
+		pmml.accept(new SourceLocationTransformer());
 
 		PMMLManager pmmlManager = new PMMLManager(pmml);
 
