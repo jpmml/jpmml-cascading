@@ -1,4 +1,4 @@
-# Usage #
+# Installation #
 
 Enter the project root directory and build using [Apache Maven] (http://maven.apache.org/):
 ```
@@ -9,6 +9,8 @@ The build produces the following two JAR files (located in the `target` director
 * `cascading-${version}.jar` - Library JAR file.
 * `jpmml-cascading-${version}-job.jar` - Hadoop job JAR file.
 
+
+# Usage #
 
 ## Library ##
 
