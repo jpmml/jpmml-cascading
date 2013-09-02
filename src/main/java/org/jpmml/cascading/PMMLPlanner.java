@@ -96,7 +96,7 @@ public class PMMLPlanner implements AssemblyPlanner {
 		if(groupFields.size() > 0){
 
 			if(groupFields.size() > 1){
-				throw new PlannerException();
+				throw new PlannerException("Too many group by fields");
 			}
 
 			tail = new GroupBy(tail, groupFields);
@@ -104,12 +104,12 @@ public class PMMLPlanner implements AssemblyPlanner {
 			tail = new Every(tail, activeFields, new CollectionAggregator(activeFields));
 		}
 
-		Fields incomingFields = (activeFields).append(groupFields);
-		Fields outgoingFields = (predictedFields).append(outputFields);
+		Fields argumentFields = (activeFields).append(groupFields);
+		Fields resultFields = (predictedFields).append(outputFields);
 
-		PMMLFunction function = new PMMLFunction(outgoingFields, evaluator);
+		PMMLFunction function = new PMMLFunction(resultFields, evaluator);
 
-		tail = new Each(tail, incomingFields, function, outgoingFields);
+		tail = new Each(tail, argumentFields, function, resultFields);
 
 		return tail;
 	}
