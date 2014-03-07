@@ -1,9 +1,35 @@
-<project>
+<?xml version="1.0" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
 	<groupId>org.jpmml</groupId>
-	<artifactId>cascading</artifactId>
+	<artifactId>jpmml-cascading</artifactId>
 	<version>1.0-SNAPSHOT</version>
+
+	<name>JPMML-Cascading</name>
+	<description>Cascading application framework (http://www.cascading.org/) library for scoring PMML models on Apache Hadoop</description>
+	<url>http://www.jpmml.org</url>
+
+	<licenses>
+		<license>
+			<name>BSD 3-Clause License</name>
+			<url>http://opensource.org/licenses/BSD-3-Clause</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>villu.ruusmann</id>
+			<name>Villu Ruusmann</name>
+		</developer>
+	</developers>
 
 	<dependencies>
 		<dependency>
@@ -32,6 +58,17 @@
 		</dependency>
 	</dependencies>
 
+	<scm>
+		<connection>scm:git:git@github.com:jpmml/jpmml-cascading.git</connection>
+		<developerConnection>scm:git:git@github.com:jpmml/jpmml-cascading.git</developerConnection>
+		<url>git://github.com/jpmml/jpmml-cascading.git</url>
+		<tag>HEAD</tag>
+	</scm>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/jpmml/jpmml-cascading/issues</url>
+	</issueManagement>
+
 	<repositories>
 		<repository>
 			<id>conjars.org</id>
@@ -41,13 +78,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
@@ -71,6 +101,33 @@
 					</descriptors>
 					<finalName>jpmml-cascading-${project.version}</finalName>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<localCheckout>true</localCheckout>
+					<pushChanges>false</pushChanges>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
