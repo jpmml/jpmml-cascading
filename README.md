@@ -1,3 +1,8 @@
+JPMML-Cascading
+===============
+
+Cascading application framework (http://www.cascading.org) library for scoring PMML models on Apache Hadoop.
+
 # Installation #
 
 Enter the project root directory and build using [Apache Maven] (http://maven.apache.org/):
@@ -5,17 +10,16 @@ Enter the project root directory and build using [Apache Maven] (http://maven.ap
 mvn clean install
 ```
 
-The build produces the following two JAR files (located in the `target` directory):
-* `cascading-${version}.jar` - Library JAR file.
-* `jpmml-cascading-${version}-job.jar` - Hadoop job JAR file.
-
+The build produces two JAR files:
+* `pmml-cascading/target/pmml-cascading-${version}.jar` - Library JAR file.
+* `pmml-cascading-example/target/example-${version}-job.jar` - Hadoop job JAR file.
 
 # Usage #
 
 ## Library ##
 
 The JPMML library provides interface `org.jpmml.evaluator.Evaluator` for performing model input variable preparation and model evaluation. It is best to be obtained via the factory method:
-```
+```java
 PMML pmml = IOUtil.unmarshal(...);
 
 // Transform default SAX Locator information to java.io.Serializable form
@@ -27,7 +31,7 @@ Evaluator evaluator = (Evaluator)pmmlManager.getModelManager(null, ModelEvaluato
 ```
 
 The JPMML-Cascading library provides Cascading assembly planner class `org.jpmml.cascading.PMMLPlanner`, which integrates the specified `org.jpmml.evaluator.Evaluator` instance into the specified flow instance. Internally, the heavy-lifting is handled by Cascading function class `org.jpmml.cascading.PMMLFunction`. The argument fields of the function match the active fields in the [MiningSchema element] (http://www.dmg.org/v4-1/MiningSchema.html). The output fields of the function match the predicted fields in the [MiningSchema element] (http://www.dmg.org/v4-1/MiningSchema.html), plus all the output fields in the [Output element] (http://www.dmg.org/v4-1/Output.html).
-```
+```java
 Evaluator evaluator = ...
 
 FlowDef flowDef = ...
@@ -44,10 +48,9 @@ The Hadoop job JAR file contains a single executable class `org.jpmml.cascading.
 
 For example, the following command scores the PMML file `P:/cascading/model.pmml` by reading arguments from the input file `P:/cascading/input.tsv` (TSV data format) and writing results to the output directory `P:/cascading/output`:
 ```
-hadoop jar jpmml-cascading-1.0-SNAPSHOT-job.jar P:/cascading/model.pmml file:///P:/cascading/input.tsv file:///P:/cascading/output
+hadoop jar example-1.0-SNAPSHOT-job.jar P:/cascading/model.pmml file:///P:/cascading/input.tsv file:///P:/cascading/output
 ```
 
+# Additional information #
 
-# Contact and Support #
-
-Please use the e-mail displayed at [GitHub profile page] (https://github.com/jpmml)
+Please contact: [info@openscoring.io] (mailto:info@openscoring.io)

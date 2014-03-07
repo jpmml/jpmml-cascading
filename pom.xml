@@ -11,6 +11,7 @@
 	<groupId>org.jpmml</groupId>
 	<artifactId>jpmml-cascading</artifactId>
 	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
 	<name>JPMML-Cascading</name>
 	<description>Cascading application framework (http://www.cascading.org/) library for scoring PMML models on Apache Hadoop</description>
@@ -31,34 +32,10 @@
 		</developer>
 	</developers>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.jpmml</groupId>
-			<artifactId>pmml-evaluator</artifactId>
-			<version>1.0.22</version>
-		</dependency>
-
-		<dependency>
-			<groupId>cascading</groupId>
-			<artifactId>cascading-core</artifactId>
-			<version>2.2.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>cascading</groupId>
-			<artifactId>cascading-hadoop</artifactId>
-			<version>2.2.1</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- Matches the cascading:cascading-hadoop dependency -->
-		<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-core</artifactId>
-			<version>1.1.2</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+	<modules>
+		<module>pmml-cascading</module>
+		<module>pmml-cascading-example</module>
+	</modules>
 
 	<scm>
 		<connection>scm:git:git@github.com:jpmml/jpmml-cascading.git</connection>
@@ -71,6 +48,23 @@
 		<url>https://github.com/jpmml/jpmml-cascading/issues</url>
 	</issueManagement>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>cascading</groupId>
+				<artifactId>cascading-core</artifactId>
+				<version>2.2.1</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>cascading</groupId>
+				<artifactId>cascading-hadoop</artifactId>
+				<version>2.2.1</version>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<repositories>
 		<repository>
 			<id>conjars.org</id>
@@ -80,30 +74,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<appendAssemblyId>true</appendAssemblyId>
-					<archive>
-						<manifest>
-							<mainClass>org.jpmml.cascading.Main</mainClass>
-						</manifest>
-					</archive>
-					<descriptors>
-						<descriptor>src/main/assembly/job.xml</descriptor>
-					</descriptors>
-					<finalName>jpmml-cascading-${project.version}</finalName>
-				</configuration>
-			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
