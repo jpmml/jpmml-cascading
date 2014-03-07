@@ -14,6 +14,17 @@
 			</excludes>
 		</dependencySet>
 		<dependencySet>
+			<unpack>false</unpack>
+			<scope>provided</scope>
+			<outputDirectory>lib</outputDirectory>
+			<useTransitiveDependencies>true</useTransitiveDependencies>
+			<useTransitiveFiltering>true</useTransitiveFiltering>
+			<includes>
+				<include>cascading:cascading-core</include>
+				<include>cascading:cascading-hadoop</include>
+			</includes>
+		</dependencySet>
+		<dependencySet>
 			<unpack>true</unpack>
 			<includes>
 				<include>${groupId}:${artifactId}</include>
