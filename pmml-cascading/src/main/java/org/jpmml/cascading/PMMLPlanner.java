@@ -1,5 +1,20 @@
 /*
  * Copyright (c) 2013 Villu Ruusmann
+ *
+ * This file is part of JPMML-Cascading
+ *
+ * JPMML-Cascading is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * JPMML-Cascading is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with JPMML-Cascading.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.jpmml.cascading;
 
@@ -90,7 +105,7 @@ public class PMMLPlanner implements AssemblyPlanner {
 
 		Fields activeFields = FieldsUtil.getActiveFields(evaluator);
 		Fields groupFields = FieldsUtil.getGroupFields(evaluator);
-		Fields predictedFields = FieldsUtil.getPredictedFields(evaluator);
+		Fields targetFields = FieldsUtil.getTargetFields(evaluator);
 		Fields outputFields = FieldsUtil.getOutputFields(evaluator);
 
 		if(groupFields.size() > 0){
@@ -105,7 +120,7 @@ public class PMMLPlanner implements AssemblyPlanner {
 		}
 
 		Fields argumentFields = (activeFields).append(groupFields);
-		Fields resultFields = (predictedFields).append(outputFields);
+		Fields resultFields = (targetFields).append(outputFields);
 
 		PMMLFunction function = new PMMLFunction(resultFields, evaluator);
 
@@ -218,7 +233,7 @@ public class PMMLPlanner implements AssemblyPlanner {
 	 *
 	 * @see FieldsUtil#getActiveFields(Evaluator)
 	 * @see FieldsUtil#getGroupFields(Evaluator)
-	 * @see FieldsUtil#getPredictedFields(Evaluator)
+	 * @see FieldsUtil#getTargetFields(Evaluator)
 	 * @see FieldsUtil#getOutputFields(Evaluator)
 	 */
 	public PMMLPlanner setRetainedFields(Fields retainedFields){
