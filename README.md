@@ -1,4 +1,4 @@
-JPMML-Cascading
+JPMML-Cascading [![Build Status](https://travis-ci.org/jpmml/jpmml-cascading.png?branch=master)](https://travis-ci.org/jpmml/jpmml-cascading)
 ===============
 
 [Cascading application framework] (http://www.cascading.org) library for scoring PMML models on Apache Hadoop.
