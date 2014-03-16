@@ -13,13 +13,13 @@ JPMML-Cascading is a thin wrapper around [JPMML-Model] (https://github.com/jpmml
 
 JPMML-Cascading library JAR file is released via [Maven Central Repository] (http://repo1.maven.org/maven2/org/jpmml/). Please join the [JPMML mailing list] (https://groups.google.com/forum/#!forum/jpmml) for release announcements.
 
-The current version is **1.1.0** (8 March, 2014).
+The current version is **1.1.1** (16 March, 2014).
 
 ```xml
 <dependency>
 	<groupId>org.jpmml</groupId>
 	<artifactId>pmml-cascading</artifactId>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 </dependency>
 ```
 
@@ -31,8 +31,8 @@ mvn clean install
 ```
 
 The build produces two JAR files:
-* `pmml-cascading/target/pmml-cascading-${version}.jar` - Library JAR file.
-* `pmml-cascading-example/target/example-${version}-job.jar` - Hadoop job JAR file.
+* `pmml-cascading/target/pmml-cascading-1.1-SNAPSHOT.jar` - Library JAR file.
+* `pmml-cascading-example/target/example-1.1-SNAPSHOT-job.jar` - Hadoop job JAR file.
 
 # Usage #
 
