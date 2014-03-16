@@ -22,6 +22,7 @@ import java.util.*;
 
 import cascading.flow.*;
 import cascading.operation.*;
+import cascading.operation.Function;
 import cascading.tuple.*;
 
 import org.jpmml.evaluator.*;
