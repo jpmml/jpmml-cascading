@@ -1,11 +1,11 @@
 JPMML-Cascading [![Build Status](https://travis-ci.org/jpmml/jpmml-cascading.png?branch=master)](https://travis-ci.org/jpmml/jpmml-cascading)
 ===============
 
-[Cascading application framework] (http://www.cascading.org) library for scoring PMML models on Apache Hadoop.
+PMML evaluator library for the [Cascading application framework] (http://www.cascading.org).
 
 # Features #
 
-JPMML-Cascading is a thin wrapper around [JPMML-Model] (https://github.com/jpmml/jpmml-model) and [JPMML-Evaluator] (https://github.com/jpmml/jpmml-evaluator) libraries.
+* Full support for PMML specification versions 3.0 through 4.2. The evaluation is handled by the [JPMML-Evaluator] (https://github.com/jpmml/jpmml-evaluator) library.
 
 # Installation #
 
