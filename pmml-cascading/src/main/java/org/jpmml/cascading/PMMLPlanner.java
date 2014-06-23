@@ -18,15 +18,19 @@
  */
 package org.jpmml.cascading;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
-import cascading.flow.*;
-import cascading.flow.planner.*;
-import cascading.pipe.*;
-import cascading.pipe.assembly.*;
-import cascading.tuple.*;
-
-import org.jpmml.evaluator.*;
+import cascading.flow.AssemblyPlanner;
+import cascading.flow.Flow;
+import cascading.flow.planner.PlannerException;
+import cascading.pipe.Each;
+import cascading.pipe.Every;
+import cascading.pipe.GroupBy;
+import cascading.pipe.Pipe;
+import cascading.pipe.assembly.Retain;
+import cascading.tuple.Fields;
+import org.jpmml.evaluator.Evaluator;
 
 public class PMMLPlanner implements AssemblyPlanner {
 

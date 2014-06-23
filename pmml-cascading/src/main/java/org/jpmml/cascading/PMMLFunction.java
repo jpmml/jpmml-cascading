@@ -18,17 +18,21 @@
  */
 package org.jpmml.cascading;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-import cascading.flow.*;
-import cascading.operation.*;
+import cascading.flow.FlowProcess;
+import cascading.operation.BaseOperation;
 import cascading.operation.Function;
-import cascading.tuple.*;
-
-import org.jpmml.evaluator.*;
+import cascading.operation.FunctionCall;
+import cascading.tuple.Fields;
+import cascading.tuple.Tuple;
+import cascading.tuple.TupleEntry;
+import cascading.tuple.TupleEntryCollector;
+import org.dmg.pmml.FieldName;
+import org.jpmml.evaluator.Evaluator;
+import org.jpmml.evaluator.EvaluatorUtil;
 import org.jpmml.evaluator.FieldValue;
-
-import org.dmg.pmml.*;
 
 public class PMMLFunction extends BaseOperation<Object> implements Function<Object> {
 

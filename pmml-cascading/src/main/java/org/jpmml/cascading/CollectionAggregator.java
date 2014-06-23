@@ -18,11 +18,17 @@
  */
 package org.jpmml.cascading;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import cascading.flow.*;
-import cascading.operation.*;
-import cascading.tuple.*;
+import cascading.flow.FlowProcess;
+import cascading.operation.Aggregator;
+import cascading.operation.AggregatorCall;
+import cascading.operation.BaseOperation;
+import cascading.operation.OperationCall;
+import cascading.tuple.Fields;
+import cascading.tuple.Tuple;
+import cascading.tuple.TupleEntry;
 
 public class CollectionAggregator extends BaseOperation<List<Object>> implements Aggregator<List<Object>> {
 

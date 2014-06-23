@@ -18,15 +18,16 @@
  */
 package org.jpmml.cascading;
 
-import java.lang.reflect.*;
-import java.util.*;
+import java.lang.reflect.Type;
+import java.util.List;
 
-import cascading.tuple.*;
-
-import org.jpmml.evaluator.*;
-
-import org.dmg.pmml.*;
+import cascading.tuple.Fields;
+import org.dmg.pmml.DataField;
+import org.dmg.pmml.DataType;
 import org.dmg.pmml.Field;
+import org.dmg.pmml.FieldName;
+import org.dmg.pmml.OutputField;
+import org.jpmml.evaluator.Evaluator;
 
 public class FieldsUtil {
 

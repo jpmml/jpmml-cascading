@@ -18,25 +18,28 @@
  */
 package org.jpmml.cascading;
 
-import java.io.*;
-import java.util.*;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Properties;
 
-import javax.xml.transform.*;
+import javax.xml.transform.Source;
 
-import cascading.flow.*;
-import cascading.flow.hadoop.*;
-import cascading.property.*;
-import cascading.scheme.hadoop.*;
-import cascading.tap.*;
-import cascading.tap.hadoop.*;
-
-import org.jpmml.evaluator.*;
-import org.jpmml.manager.*;
-import org.jpmml.model.*;
-
-import org.dmg.pmml.*;
-
-import org.xml.sax.*;
+import cascading.flow.Flow;
+import cascading.flow.FlowConnector;
+import cascading.flow.FlowDef;
+import cascading.flow.hadoop.HadoopFlowConnector;
+import cascading.property.AppProps;
+import cascading.scheme.hadoop.TextDelimited;
+import cascading.tap.Tap;
+import cascading.tap.hadoop.Hfs;
+import org.dmg.pmml.PMML;
+import org.jpmml.evaluator.ModelEvaluator;
+import org.jpmml.evaluator.ModelEvaluatorFactory;
+import org.jpmml.manager.PMMLManager;
+import org.jpmml.model.ImportFilter;
+import org.jpmml.model.JAXBUtil;
+import org.jpmml.model.SourceLocationTransformer;
+import org.xml.sax.InputSource;
 
 public class Main {
 
