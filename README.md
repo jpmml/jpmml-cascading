@@ -7,6 +7,10 @@ PMML evaluator library for the [Cascading application framework] (http://www.cas
 
 * Full support for PMML specification versions 3.0 through 4.2. The evaluation is handled by the [JPMML-Evaluator] (https://github.com/jpmml/jpmml-evaluator) library.
 
+# Prerequisites #
+
+* Cascading application framework version 2.2.0 or greater.
+
 # Installation #
 
 ## Library ##
