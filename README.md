@@ -78,11 +78,18 @@ Please see [the example application] (https://github.com/jpmml/jpmml-cascading/b
 
 ## Hadoop job ##
 
-The Hadoop job JAR file contains a single executable class `org.jpmml.cascading.Main`. It expects three arguments: 1) the name of the PMML file in local filesystem, 2) the Cascading Hfs specification of the source resource and 3) the Cascading Hfs specification of the sink resource:
+The Hadoop job JAR file contains a single executable class `org.jpmml.cascading.Main`.
 
-For example, the following command scores the PMML file `P:/cascading/model.pmml` by reading arguments from the input file `P:/cascading/input.tsv` (TSV data format) and writing results to the output directory `P:/cascading/output`:
+This class expects three command-line arguments:
+
+1. The path of the **model** PMML file in local filesystem.
+2. The path of the Cascading **source resource** in Hadoop filesystem.
+3. The path of the Cascading **sink resource** in Hadoop filesystem.
+
+For example, the following command performs the scoring operation by reading the model from the PMML file `/tmp/cascading/model.pmml` and input data records from the tab-separated values (TSV) file `/tmp/cascading/input.tsv`; the output data records are written to the directory `/tmp/cascading/output`:
+
 ```
-hadoop jar example-1.1-SNAPSHOT-job.jar P:/cascading/model.pmml file:///P:/cascading/input.tsv file:///P:/cascading/output
+hadoop jar example-1.1-SNAPSHOT-job.jar /tmp/cascading/model.pmml file:///tmp/cascading/input.tsv file:///tmp/cascading/output
 ```
 
 # License #
