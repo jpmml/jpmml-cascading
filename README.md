@@ -59,10 +59,10 @@ PMML pmml = ...;
 
 PMMLManager pmmlManager = new PMMLManager(pmml);
 
-ModelEvaluator<?> modelEvaluator = (ModelEvaluator<?>)pmmlManager.getModelManager(null, ModelEvaluatorFactory.getInstance());
+ModelEvaluator<?> modelEvaluator = (ModelEvaluator<?>)pmmlManager.getModelManager(ModelEvaluatorFactory.getInstance());
 ```
 
-The JPMML-Cascading library itself provides Cascading assembly planner class `org.jpmml.cascading.PMMLPlanner`, which integrates the specified `org.jpmml.evaluator.ModelEvaluator` instance into the specified Cascading flow instance. Internally, the heavy-lifting is handled by Cascading function class `org.jpmml.cascading.PMMLFunction`. The argument fields of the function match the active fields in the [MiningSchema element] (http://www.dmg.org/v4-2/MiningSchema.html). The output fields of the function match the target fields in the [MiningSchema element] (http://www.dmg.org/v4-2/MiningSchema.html), plus all the output fields in the [Output element] (http://www.dmg.org/v4-2/Output.html).
+The JPMML-Cascading library itself provides Cascading assembly planner class `org.jpmml.cascading.PMMLPlanner`, which integrates the specified `org.jpmml.evaluator.ModelEvaluator` instance into the specified Cascading flow instance. Internally, the heavy-lifting is handled by Cascading function class `org.jpmml.cascading.PMMLFunction`. The argument fields of the function match the active fields in the [MiningSchema element] (http://www.dmg.org/v4-2-1/MiningSchema.html). The output fields of the function match the target fields in the [MiningSchema element] (http://www.dmg.org/v4-2-1/MiningSchema.html), plus all the output fields in the [Output element] (http://www.dmg.org/v4-2-1/Output.html).
 ```java
 ModelEvaluator<?> modelEvaluator = ...;
 
