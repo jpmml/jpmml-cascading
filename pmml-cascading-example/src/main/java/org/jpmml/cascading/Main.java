@@ -75,6 +75,7 @@ public class Main {
 		PMMLManager pmmlManager = new PMMLManager(pmml);
 
 		ModelEvaluator<?> modelEvaluator = (ModelEvaluator<?>)pmmlManager.getModelManager(ModelEvaluatorFactory.getInstance());
+		modelEvaluator.verify();
 
 		FlowDef flowDef = FlowDef.flowDef();
 
