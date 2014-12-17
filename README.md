@@ -27,7 +27,7 @@ The current version is **1.1.4** (29 July, 2014).
 </dependency>
 ```
 
-## Hadoop job ##
+## Example Hadoop job ##
 
 Enter the project root directory and build using [Apache Maven] (http://maven.apache.org/):
 ```
@@ -36,7 +36,7 @@ mvn clean install
 
 The build produces two JAR files:
 * `pmml-cascading/target/pmml-cascading-1.1-SNAPSHOT.jar` - Library JAR file.
-* `pmml-cascading-example/target/example-1.1-SNAPSHOT-job.jar` - Hadoop job JAR file.
+* `pmml-cascading-example/target/example-1.1-SNAPSHOT-job.jar` - Example Hadoop job JAR file.
 
 # Usage #
 
@@ -76,20 +76,19 @@ flowDef = flowDef.addAssemblyPlanner(pmmlPlanner);
 
 Please see [the example application] (https://github.com/jpmml/jpmml-cascading/blob/master/pmml-cascading-example/src/main/java/org/jpmml/cascading/Main.java) for full picture.
 
-## Hadoop job ##
+## Example Hadoop job ##
 
-The Hadoop job JAR file contains a single executable class `org.jpmml.cascading.Main`.
+The example Hadoop job JAR file contains a single executable class `org.jpmml.cascading.Main`.
 
 This class expects three command-line arguments:
 
 1. The path of the **model** PMML file in local filesystem.
-2. The path of the Cascading **source resource** in Hadoop filesystem.
-3. The path of the Cascading **sink resource** in Hadoop filesystem.
+2. The path of the Cascading **source** CSV resource in Hadoop filesystem.
+3. The path of the Cascading **sink** CSV resource in Hadoop filesystem.
 
-For example, the following command performs the scoring operation by reading the model from the PMML file `/tmp/cascading/model.pmml` and input data records from the tab-separated values (TSV) file `/tmp/cascading/input.tsv`; the output data records are written to the directory `/tmp/cascading/output`:
-
+For example:
 ```
-hadoop jar example-1.1-SNAPSHOT-job.jar /tmp/cascading/model.pmml file:///tmp/cascading/input.tsv file:///tmp/cascading/output
+hadoop jar example-1.1-SNAPSHOT-job.jar /tmp/cascading/model.pmml file:///tmp/cascading/input.csv file:///tmp/cascading/output
 ```
 
 # License #

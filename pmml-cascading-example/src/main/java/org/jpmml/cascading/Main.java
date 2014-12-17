@@ -79,10 +79,10 @@ public class Main {
 
 		FlowDef flowDef = FlowDef.flowDef();
 
-		Tap source = new Hfs(new TextDelimited(true, "\t"), args[1]);
+		Tap source = new Hfs(new TextDelimited(true, ","), args[1]);
 		flowDef = flowDef.addSource("source", source);
 
-		Tap sink = new Hfs(new TextDelimited(true, "\t"), args[2]);
+		Tap sink = new Hfs(new TextDelimited(true, ","), args[2]);
 		flowDef = flowDef.addSink("sink", sink);
 
 		PMMLPlanner pmmlPlanner = new PMMLPlanner(modelEvaluator);
