@@ -20,6 +20,7 @@ package org.jpmml.cascading;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import cascading.flow.AssemblyPlanner;
 import cascading.flow.Flow;
@@ -47,6 +48,14 @@ public class PMMLPlanner implements AssemblyPlanner {
 
 	public PMMLPlanner(Evaluator evaluator){
 		setEvaluator(evaluator);
+	}
+
+	/**
+	 * @since Cascading 2.6.0
+	 */
+	/*@Override*/
+	public Map<String, String> getFlowDescriptor(){
+		return Collections.emptyMap();
 	}
 
 	@Override
