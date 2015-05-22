@@ -38,7 +38,7 @@ import org.jpmml.evaluator.ModelEvaluatorFactory;
 import org.jpmml.manager.PMMLManager;
 import org.jpmml.model.ImportFilter;
 import org.jpmml.model.JAXBUtil;
-import org.jpmml.model.SourceLocationTransformer;
+import org.jpmml.model.visitors.LocatorTransformer;
 import org.xml.sax.InputSource;
 
 public class Main {
@@ -70,7 +70,7 @@ public class Main {
 			is.close();
 		}
 
-		pmml.accept(new SourceLocationTransformer());
+		pmml.accept(new LocatorTransformer());
 
 		PMMLManager pmmlManager = new PMMLManager(pmml);
 

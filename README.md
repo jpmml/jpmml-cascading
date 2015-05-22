@@ -50,7 +50,7 @@ Source source = ImportFilter.apply(...);
 PMML pmml = JAXBUtil.unmarshalPMML(source);
 
 // Transform default SAX Locator information to java.io.Serializable form
-pmml.accept(new SourceLocationTransformer());
+pmml.accept(new LocatorTransformer());
 ```
 
 The [JPMML-Evaluator] (https://github.com/jpmml/jpmml-evaluator) library provides facilities for obtaining a proper instance of `org.jpmml.evaluator.ModelEvaluator`:
