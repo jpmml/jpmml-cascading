@@ -11,6 +11,9 @@
 			<outputDirectory>lib</outputDirectory>
 			<excludes>
 				<exclude>${groupId}:${artifactId}</exclude>
+				<exclude>com.google.guava:guava</exclude>
+				<exclude>org.jpmml:pmml-evaluator</exclude>
+				<exclude>org.jpmml:pmml-manager</exclude>
 			</excludes>
 		</dependencySet>
 		<dependencySet>
