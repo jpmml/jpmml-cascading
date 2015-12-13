@@ -15,7 +15,7 @@ PMML evaluator library for the [Cascading application framework] (http://www.cas
 
 ## Library ##
 
-JPMML-Cascading library JAR file is released via [Maven Central Repository] (http://repo1.maven.org/maven2/org/jpmml/). Please join the [JPMML mailing list] (https://groups.google.com/forum/#!forum/jpmml) for release announcements.
+JPMML-Cascading library JAR file is released via [Maven Central Repository] (http://repo1.maven.org/maven2/org/jpmml/).
 
 The current version is **1.1.6** (13 December, 2015).
 
@@ -35,8 +35,8 @@ mvn clean install
 ```
 
 The build produces two JAR files:
-* `pmml-cascading/target/pmml-cascading-1.1-SNAPSHOT.jar` - Library JAR file.
-* `pmml-cascading-example/target/example-1.1-SNAPSHOT-job.jar` - Example Hadoop job JAR file.
+* `pmml-cascading/target/pmml-cascading-1.2-SNAPSHOT.jar` - Library JAR file.
+* `pmml-cascading-example/target/example-1.2-SNAPSHOT-job.jar` - Example Hadoop job JAR file.
 
 # Usage #
 
@@ -88,7 +88,7 @@ This class expects three command-line arguments:
 
 For example:
 ```
-hadoop jar example-1.1-SNAPSHOT-job.jar /tmp/cascading/model.pmml file:///tmp/cascading/input.csv file:///tmp/cascading/output
+hadoop jar example-1.2-SNAPSHOT-job.jar /tmp/cascading/model.pmml file:///tmp/cascading/input.csv file:///tmp/cascading/output
 ```
 
 # License #

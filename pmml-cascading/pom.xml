@@ -38,7 +38,4 @@
 			<artifactId>cascading-hadoop</artifactId>
 		</dependency>
 	</dependencies>
-
-	<build>
-	</build>
 </project>
