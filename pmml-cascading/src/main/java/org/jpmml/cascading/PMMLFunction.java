@@ -77,7 +77,7 @@ public class PMMLFunction extends BaseOperation<Object> implements Function<Obje
 
 	static
 	private Map<FieldName, FieldValue> decodeArguments(Evaluator evaluator, TupleEntry tuple){
-		Map<FieldName, FieldValue> result = new LinkedHashMap<FieldName, FieldValue>();
+		Map<FieldName, FieldValue> result = new LinkedHashMap<>();
 
 		Fields fields = tuple.getFields();
 
@@ -96,7 +96,7 @@ public class PMMLFunction extends BaseOperation<Object> implements Function<Obje
 		TupleEntry result = new TupleEntry(fields, Tuple.size(fields.size()));
 
 		for(int i = 0; i < fields.size(); i++){
-			FieldName key = new FieldName((String)fields.get(i));
+			FieldName key = FieldName.create((String)fields.get(i));
 			Object value = map.get(key);
 
 			result.setRaw(key.getValue(), EvaluatorUtil.decode(value));

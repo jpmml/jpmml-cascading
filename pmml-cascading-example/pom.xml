@@ -64,15 +64,14 @@
 								<includes>
 									<include>com.google.guava:guava</include>
 									<include>org.jpmml:pmml-evaluator</include>
-									<include>org.jpmml:pmml-manager</include>
 								</includes>
 							</artifactSet>
 							<createDependencyReducedPom>false</createDependencyReducedPom>
 							<minimizeJar>true</minimizeJar>
 							<relocations>
 								<relocation>
-									<pattern>com.google</pattern>
-									<shadedPattern>org.jpmml.com.google</shadedPattern>
+									<pattern>com.google.common</pattern>
+									<shadedPattern>com.google.common19_0</shadedPattern>
 								</relocation>
 							</relocations>
 						</configuration>

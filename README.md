@@ -42,34 +42,22 @@ The build produces two JAR files:
 
 ## Library ##
 
-The [JPMML-Model] (https://github.com/jpmml/jpmml-model) library provides facilities for loading PMML schema version 3.X and 4.X documents into an instance of `org.dmg.pmml.PMML`:
+Constructing an instance of Cascading planner class `org.jpmml.cascading.PMMLPlanner` based on a PMML document in local filesystem:
 ```java
-// Use SAX filtering to transform PMML schema version 3.X and 4.X documents to PMML schema version 4.2 document
-Source source = ImportFilter.apply(...);
-
-PMML pmml = JAXBUtil.unmarshalPMML(source);
-
-// Transform default SAX Locator information to java.io.Serializable form
-pmml.accept(new LocatorTransformer());
+File pmmlFile = ...;
+Evaluator evaluator = PMMLPlannerUtil.createEvaluator(pmmlFile);
+PMMLPlanner pmmlPlanner = new PMMLPlanner(evaluator);
 ```
 
-The [JPMML-Evaluator] (https://github.com/jpmml/jpmml-evaluator) library provides facilities for obtaining a proper instance of `org.jpmml.evaluator.ModelEvaluator`:
+Building a simple flow for scoring data:
 ```java
-PMML pmml = ...;
-
-PMMLManager pmmlManager = new PMMLManager(pmml);
-
-ModelEvaluator<?> modelEvaluator = (ModelEvaluator<?>)pmmlManager.getModelManager(ModelEvaluatorFactory.getInstance());
-```
-
-The JPMML-Cascading library itself provides Cascading assembly planner class `org.jpmml.cascading.PMMLPlanner`, which integrates the specified `org.jpmml.evaluator.ModelEvaluator` instance into the specified Cascading flow instance. Internally, the heavy-lifting is handled by Cascading function class `org.jpmml.cascading.PMMLFunction`. The argument fields of the function match the active fields in the [MiningSchema element] (http://www.dmg.org/v4-2-1/MiningSchema.html). The output fields of the function match the target fields in the [MiningSchema element] (http://www.dmg.org/v4-2-1/MiningSchema.html), plus all the output fields in the [Output element] (http://www.dmg.org/v4-2-1/Output.html).
-```java
-ModelEvaluator<?> modelEvaluator = ...;
-
 FlowDef flowDef = ...;
 
-PMMLPlanner pmmlPlanner = new PMMLPlanner(modelEvaluator);
-pmmlPlanner.setRetainOnlyActiveFields();
+flowDef = flowDef.addSource("input", ...);
+flowDef = flowDef.addSink("output", ...);
+
+pmmlPlanner.setHeadName("input");
+pmmlPlanner.setTailName("output");
 
 flowDef = flowDef.addAssemblyPlanner(pmmlPlanner);
 ```

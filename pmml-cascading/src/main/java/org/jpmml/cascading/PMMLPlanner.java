@@ -132,8 +132,13 @@ public class PMMLPlanner implements AssemblyPlanner {
 			tail = new Every(tail, activeFields, new CollectionAggregator(activeFields));
 		}
 
-		Fields argumentFields = (activeFields).append(groupFields);
-		Fields resultFields = (targetFields).append(outputFields);
+		Fields argumentFields = new Fields()
+			.append(activeFields)
+			.append(groupFields);
+
+		Fields resultFields = new Fields()
+			.append(targetFields)
+			.append(outputFields);
 
 		PMMLFunction function = new PMMLFunction(resultFields, evaluator);
 
@@ -230,7 +235,9 @@ public class PMMLPlanner implements AssemblyPlanner {
 	public PMMLPlanner setRetainOnlyActiveFields(){
 		Evaluator evaluator = getEvaluator();
 
-		Fields incomingFields = (FieldsUtil.getActiveFields(evaluator)).append(FieldsUtil.getGroupFields(evaluator));
+		Fields incomingFields = new Fields()
+			.append(FieldsUtil.getActiveFields(evaluator))
+			.append(FieldsUtil.getGroupFields(evaluator));
 
 		return setRetainedFields(incomingFields);
 	}

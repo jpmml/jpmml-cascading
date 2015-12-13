@@ -42,7 +42,7 @@ public class CollectionAggregator extends BaseOperation<List<Object>> implements
 
 	@Override
 	public void prepare(FlowProcess flowProcess, OperationCall<List<Object>> operationCall){
-		List<Object> context = new ArrayList<Object>();
+		List<Object> context = new ArrayList<>();
 
 		operationCall.setContext(context);
 	}
@@ -67,7 +67,7 @@ public class CollectionAggregator extends BaseOperation<List<Object>> implements
 		List<Object> context = aggregatorCall.getContext();
 
 		Tuple result = Tuple.size(1);
-		result.set(0, new ArrayList<Object>(context));
+		result.set(0, new ArrayList<>(context));
 
 		aggregatorCall.getOutputCollector().add(result);
 	}

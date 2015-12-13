@@ -18,11 +18,8 @@
  */
 package org.jpmml.cascading;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.File;
 import java.util.Properties;
-
-import javax.xml.transform.Source;
 
 import cascading.flow.Flow;
 import cascading.flow.FlowConnector;
@@ -32,14 +29,7 @@ import cascading.property.AppProps;
 import cascading.scheme.hadoop.TextDelimited;
 import cascading.tap.Tap;
 import cascading.tap.hadoop.Hfs;
-import org.dmg.pmml.PMML;
-import org.jpmml.evaluator.ModelEvaluator;
-import org.jpmml.evaluator.ModelEvaluatorFactory;
-import org.jpmml.manager.PMMLManager;
-import org.jpmml.model.ImportFilter;
-import org.jpmml.model.JAXBUtil;
-import org.jpmml.model.visitors.LocatorTransformer;
-import org.xml.sax.InputSource;
+import org.jpmml.evaluator.Evaluator;
 
 public class Main {
 
@@ -52,41 +42,26 @@ public class Main {
 			System.exit(-1);
 		}
 
+		Evaluator evaluator = PMMLPlannerUtil.createEvaluator(new File(args[0]));
+
 		Properties properties = new Properties();
 
 		AppProps.setApplicationJarClass(properties, Main.class);
 
 		FlowConnector connector = new HadoopFlowConnector(properties);
 
-		PMML pmml;
-
-		InputStream is = new FileInputStream(args[0]);
-
-		try {
-			Source source = ImportFilter.apply(new InputSource(is));
-
-			pmml = JAXBUtil.unmarshalPMML(source);
-		} finally {
-			is.close();
-		}
-
-		pmml.accept(new LocatorTransformer());
-
-		PMMLManager pmmlManager = new PMMLManager(pmml);
-
-		ModelEvaluator<?> modelEvaluator = (ModelEvaluator<?>)pmmlManager.getModelManager(ModelEvaluatorFactory.getInstance());
-		modelEvaluator.verify();
-
 		FlowDef flowDef = FlowDef.flowDef();
 
 		Tap source = new Hfs(new TextDelimited(true, ","), args[1]);
-		flowDef = flowDef.addSource("source", source);
+		flowDef = flowDef.addSource("input", source);
 
 		Tap sink = new Hfs(new TextDelimited(true, ","), args[2]);
-		flowDef = flowDef.addSink("sink", sink);
+		flowDef = flowDef.addSink("output", sink);
 
-		PMMLPlanner pmmlPlanner = new PMMLPlanner(modelEvaluator);
+		PMMLPlanner pmmlPlanner = new PMMLPlanner(evaluator);
 		pmmlPlanner.setRetainOnlyActiveFields();
+		pmmlPlanner.setHeadName("input");
+		pmmlPlanner.setTailName("output");
 
 		flowDef = flowDef.addAssemblyPlanner(pmmlPlanner);
 
