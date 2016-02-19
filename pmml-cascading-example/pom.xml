@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.jpmml</groupId>
 		<artifactId>jpmml-cascading</artifactId>
-		<version>1.2-SNAPSHOT</version>
+		<version>1.2.2</version>
 	</parent>
 
 	<groupId>org.jpmml</groupId>
@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>org.jpmml</groupId>
 			<artifactId>pmml-cascading</artifactId>
-			<version>1.2-SNAPSHOT</version>
+			<version>1.2.2</version>
 		</dependency>
 
 		<dependency>
