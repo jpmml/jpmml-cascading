@@ -17,13 +17,13 @@ PMML evaluator library for the [Cascading application framework] (http://www.cas
 
 JPMML-Cascading library JAR file is released via [Maven Central Repository] (http://repo1.maven.org/maven2/org/jpmml/).
 
-The current version is **1.2.1** (15 December, 2015).
+The current version is **1.2.2** (19 February, 2016).
 
 ```xml
 <dependency>
 	<groupId>org.jpmml</groupId>
 	<artifactId>pmml-cascading</artifactId>
-	<version>1.2.1</version>
+	<version>1.2.2</version>
 </dependency>
 ```
 
