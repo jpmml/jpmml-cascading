@@ -142,7 +142,7 @@ public class PMMLPlanner implements AssemblyPlanner {
 
 		PMMLFunction function = new PMMLFunction(resultFields, evaluator);
 
-		tail = new Each(tail, argumentFields, function, resultFields);
+		tail = new Each(tail, argumentFields, function, Fields.ALL);
 
 		return tail;
 	}
